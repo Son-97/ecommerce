@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GlobalState } from "../../../GlobalState";
 import ProductItem from "../utils/productItem/ProductItem";
 import Loading from "../utils/loading/Loading";
@@ -45,6 +45,12 @@ function Products() {
     }
   };
 
+  useEffect(() => {
+    if (products) {
+      setLoading(false);
+    }
+  }, [products]);
+
   const checkAll = () => {
     products.forEach((product) => {
       product.checked = !isCheck;
@@ -67,7 +73,7 @@ function Products() {
     );
   return (
     <>
-      <Filters />
+      <Filters setLoading={setLoading} />
 
       {isAdmin && (
         <div className="delete-all">
